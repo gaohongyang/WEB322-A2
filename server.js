@@ -1,6 +1,7 @@
 const express =  require('express');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
+const sgMail = require('@sendgrid/mail')
 
 const fakeDB = require("./model/FakeDB.js");
 
@@ -121,11 +122,38 @@ app.post('/register', (req, res)=>{
         })
     }
     else{
-        res.render("register", {
-            title: "Register"
+        sgMail.setApiKey('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')
+        const msg = {
+            to: req.body.registerEmail,
+            from: 'hgao42@myseneca.ca',
+            subject: "Welcome to GAO's movie website",
+            html: `
+                <h1>Welcome to GAO's movie website</h1><br>
+                <p>Hey ${req.body.registerName},</p>
+                <p>Congratulations! You've successfully signed up for GAO's movie website, your login ID is: ${req.body.registerEmail}</P>
+                <p>You may now:</P>
+                <ul>
+                    <li>Access you account</li>
+                    <li>Buy or rent movies and TV shows</li>
+                    <li>Subscribe for more exciting news</li>
+                </ul>
+                <br>
+                <p>See you online</p>
+                <p>GAO's movie team</P>
+            `,
+        }
+        sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent')
+            res.redirect("/signIn")
+        })
+        .catch((error) => {
+            console.error(error)
         })
     }
 })
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and run at port ${PORT}`);
