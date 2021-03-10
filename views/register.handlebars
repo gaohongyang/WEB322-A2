@@ -1,16 +1,19 @@
-<form class="container form-container mt-5 text-white">
+<form class="container form-container mt-5 text-white" action="/register" method="POST">
     <h1 class="h3 mb-3 pt-5 fw-normal text-center">Please Register</h1>
     <div class="sign-in-form my-3">
-        <label for="inputEmail">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="registerEmail">Email address</label>
+        <input id="registerEmail" class="form-control" placeholder="Email address" name="registerEmail" value="{{email}}" autofocus>
+        <div class="text-white">{{emailError}}</div>
     </div>
     <div class="sign-in-form my-3">
-        <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="registerPassword">Password</label>
+        <input type="password" id="registerPassword" class="form-control" placeholder="Password(6-12 characters, can only have letters and numbers)" name="registerPassword" value="{{password}}">
+        <div class="text-white">{{passwordError}}</div>
     </div>
     <div class="sign-in-form my-3">
-        <label for="inputName">Full Name</label>
-        <input type="text" id="inputName" class="form-control" placeholder="Full Name" required>
+        <label for="registerName">Full Name</label>
+        <input type="text" id="registerName" class="form-control" placeholder="Full Name" name="registerName" value="{{name}}">
+        <div class="text-white">{{nameError}}</div>
     </div>
 
     <div class="row">
@@ -31,15 +34,17 @@
     </div>
 
     <div class="sign-in-form my-3">
-        <label for="inputAddress">Address</label>
-        <input type="address" id="inputAddress" class="form-control" placeholder="Address" required>
+        <label for="registerAddress">Address</label>
+        <input type="address" id="registerAddress" class="form-control" placeholder="Address" name="registerAddress" value="{{address}}">
+        <div class="text-white">{{addressError}}</div>
     </div>
 
     <div class="row">
         <div class="form-group col">
-            <label for="city">City</label>
-            <input class="form-control" name="city" list="city" autocomplete="address-level2" required>
-            <datalist id="city">
+            <label for="registerCity">City</label>
+            <input class="form-control" list="registerCity" autocomplete="address-level2" name="registerCity" value="{{city}}">
+            <div class="text-white">{{cityError}}</div>
+            <datalist id="registerCity">
                 <option>Toronto</option>
                 <option>Vancouver</option>
                 <option>Montreal</option>
@@ -54,13 +59,14 @@
             </datalist>
         </div>
         <div class="form-group col">
-            <label for="postal-code">Postal Code</label>
-            <input class="form-control" name="postal-code" id="postal-code" autocomplete="postal-code" type="text"
-                placeholder="A1A 2B2" pattern="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$" required>
+            <label for="registerPostalCode">Postal Code</label>
+            <input class="form-control" name="registerPostalCode" id="registerPostalCode" autocomplete="postal-code" type="text"
+                placeholder="A1A 2B2" value="{{postalCode}}">
+            <div class="text-white">{{postalCodeError}}</div>
         </div>
         <div class="sign-in-form my-3">
-            <label for="inputPhone">Phone Number(Optional)</label>
-            <input type="text" id="inputPhone" class="form-control" placeholder="Phone Number">
+            <label for="registerPhone">Phone Number(Optional)</label>
+            <input type="text" id="registerPhone" class="form-control" placeholder="Phone Number" name="registerPhone" value="{{phone}}">
         </div>
         <div class="d-flex flex-row-reverse mt-3">
             <input class="btn btn-primary" type="submit" name="submit" value="Submit"">
