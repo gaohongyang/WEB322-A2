@@ -1,0 +1,70 @@
+<form class="container form-container mt-5 text-white">
+    <h1 class="h3 mb-3 pt-5 fw-normal text-center">Please Register</h1>
+    <div class="sign-in-form my-3">
+        <label for="inputEmail">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    </div>
+    <div class="sign-in-form my-3">
+        <label for="inputPassword">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
+    <div class="sign-in-form my-3">
+        <label for="inputName">Full Name</label>
+        <input type="text" id="inputName" class="form-control" placeholder="Full Name" required>
+    </div>
+
+    <div class="row">
+        <div class="form-group col">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="selection" id="male" value="male" checked>
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="selection" id="female" value="female">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="selection" id="other" value="other">
+                <label class="form-check-label" for="other">Other</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="sign-in-form my-3">
+        <label for="inputAddress">Address</label>
+        <input type="address" id="inputAddress" class="form-control" placeholder="Address" required>
+    </div>
+
+    <div class="row">
+        <div class="form-group col">
+            <label for="city">City</label>
+            <input class="form-control" name="city" list="city" autocomplete="address-level2" required>
+            <datalist id="city">
+                <option>Toronto</option>
+                <option>Vancouver</option>
+                <option>Montreal</option>
+                <option>Victoria</option>
+                <option>Halifax</option>
+                <option>Calgary</option>
+                <option>Ottawa</option>
+                <option>Edmonton</option>
+                <option>Mississauga</option>
+                <option>Winnipeg</option>
+                <option>Quebec City</option>
+            </datalist>
+        </div>
+        <div class="form-group col">
+            <label for="postal-code">Postal Code</label>
+            <input class="form-control" name="postal-code" id="postal-code" autocomplete="postal-code" type="text"
+                placeholder="A1A 2B2" pattern="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$" required>
+        </div>
+        <div class="sign-in-form my-3">
+            <label for="inputPhone">Phone Number(Optional)</label>
+            <input type="text" id="inputPhone" class="form-control" placeholder="Phone Number">
+        </div>
+        <div class="d-flex flex-row-reverse mt-3">
+            <input class="btn btn-primary" type="submit" name="submit" value="Submit"">
+            <input class="btn btn-success mr-4" type="reset" name="reset" value="Reset">
+        </div>
+        <a href="/signIn" class="register-link text-white">Sign In</a><br>
+</form>

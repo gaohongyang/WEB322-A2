@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.80.0">
+  <title>{{title}}</title>
+  <link rel="icon" type="image/jpg" href="/images/logo.jpg">
+
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container container-fluid">
+        <a class="navbar-brand" href="/">GAO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products">All Movies And Shows</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signIn" tabindex="-1">Sign In</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2 py-1" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success py-1" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {{{body}}}
+  </main>
+
+  <footer class="page-footer bg-dark">
+    <hr>
+    <!--Social Icons-->
+    <div class="bg-success">
+      <div class="container">
+        <div class="row py-4 d-flex align-items-center">
+          <div class="col-md-12 text-center">
+            <a href="#"><i class="fab fa-facebook-f text-white fa-lg me-5"></i></a>
+            <a href="#"><i class="fab fa-twitter text-white fa-lg me-5"></i></a>
+            <a href="#"><i class="fab fa-google-plus-g text-white fa-lg me-5"></i></a>
+            <a href="#"><i class="fab fa-instagram text-white fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--./Social Icons-->
+
+    <div class="container text-center text-md-left mt-5">
+      <div class="row">
+
+        <!-- Account -->
+        <div class="col-md-3 mx-auto mb-4">
+          <h6 class="text--uppercase font-weight-bold">My Account</h6>
+          <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 85px; height: 2px">
+
+          <ul class="list-unstyled">
+            <li class="my-2"><a href="#">Account</a></li>
+            <li class="my-2"><a href="#">Settings</a></li>
+            <li class="my-2"><a href="#">Manage Devices</a></li>
+          </ul>
+        </div>
+        <!-- ./Account -->
+
+        <!-- Features -->
+        <div class="col-md-3 mx-auto mb-4">
+          <h6 class="text--uppercase font-weight-bold">Features</h6>
+          <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 85px; height: 2px">
+
+          <ul class="list-unstyled">
+            <li class="my-2"><a href="#">List</a></li>
+            <li class="my-2"><a href="#">Family</a></li>
+            <li class="my-2"><a href="#">Movies Anywhere</a></li>
+          </ul>
+        </div>
+        <!-- ./Features -->
+
+        <!-- Help -->
+        <div class="col-md-3 mx-auto mb-4">
+          <h6 class="text--uppercase font-weight-bold">Features</h6>
+          <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 85px; height: 2px">
+
+          <ul class="list-unstyled">
+            <li class="my-2"><a href="#">About Us</a></li>
+            <li class="my-2"><a href="#">Devices</a></li>
+            <li class="my-2"><a href="#">Support</a></li>
+            <li class="my-2"><a href="#">Forums</a></li>
+            <li class="my-2"><a href="#">Contact Us</a></li>
+            <li class="my-2"><a href="#">Jobs</a></li>
+          </ul>
+        </div>
+        <!-- ./Help -->
+      </div>
+    </div>
+
+  </footer>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="https://kit.fontawesome.com/c4ce7b64aa.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
+  </script>
+</body>
+
+</html>

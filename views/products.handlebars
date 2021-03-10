@@ -1,0 +1,19 @@
+<div class="container">
+    <h2 class="mt-5 text-white pt-5">All Movies And TV Shows</h2>
+    <hr>
+    <div class="row">
+        {{#each products}}
+        <div class="col-md-2 product-grid">
+            <div class="image">
+                <a href="/products/{{this.id}}">
+                    <img src="images/{{this.id}}.jpg" class="w-100">
+                    <div class="overlay">
+                        <div class="detail">View Details</div>
+                    </div>
+                </a>
+            </div>
+            <h5 class="text-center mt-2 text-white">{{this.title}}</h5>
+        </div>
+        {{/each}}
+    </div>
+</div>
