@@ -120,3 +120,36 @@ body{
 .dashNav:hover{
     background-color: #434444;
 }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .prod-description{
+        margin-left: 10%;
+        padding-top: 20%;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .prod-description{
+        padding-left: 5%;
+        padding-top: 0;
+        position:relative;
+    }
+    .desc-image{
+        height: 300px;
+        padding-left: 5%;
+    }
+    .description{
+        padding: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .image{
+        width: 150px;
+        height: auto;
+    }
+    .product-grid{
+        width:auto;
+    }
+}
