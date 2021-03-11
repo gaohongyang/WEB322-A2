@@ -102,3 +102,21 @@ body{
     padding-left: 20%;
     padding-right: 20%;
 }
+
+.dashBoard{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.dashNav{
+    background-color: transparent;
+    color: #434444;
+    border-radius: 25px;
+    border: 1px solid #434444;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.dashNav:hover{
+    background-color: #434444;
+}

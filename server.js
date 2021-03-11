@@ -146,7 +146,7 @@ app.post('/register', (req, res)=>{
         .send(msg)
         .then(() => {
             console.log('Email sent')
-            res.redirect("/signIn")
+            res.redirect("/dashBoard")
         })
         .catch((error) => {
             console.error(error)
@@ -154,6 +154,11 @@ app.post('/register', (req, res)=>{
     }
 })
 
+app.get("/dashBoard", (req, res)=>{
+    res.render("dashBoard",{
+        title: "Dash Board"
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`Server is up and run at port ${PORT}`);
