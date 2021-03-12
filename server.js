@@ -7,6 +7,8 @@ const fakeDB = require("./model/FakeDB.js");
 
 const app = express();
 
+require('dotenv').config({ path: 'config/keys.env' });
+
 app.use(express.static("public"));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -122,7 +124,7 @@ app.post('/register', (req, res)=>{
         })
     }
     else{
-        sgMail.setApiKey('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')
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
             to: req.body.registerEmail,
             from: 'hgao42@myseneca.ca',
