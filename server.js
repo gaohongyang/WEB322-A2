@@ -163,5 +163,5 @@ app.get("/dashBoard", (req, res)=>{
 })
 
 app.listen(PORT, () => {
-    console.log(`Server is up and run at port ${PORT}`);
+    console.log(`Server is up and running`);
 })
