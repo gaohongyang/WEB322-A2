@@ -7,8 +7,6 @@ const fakeDB = require("./model/FakeDB.js");
 
 const app = express();
 
-require('dotenv').config({ path: 'config/keys.env' });
-
 app.use(express.static("public"));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
