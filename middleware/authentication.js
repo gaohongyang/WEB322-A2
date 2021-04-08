@@ -3,6 +3,6 @@ exports.isLoggedIn=(req, res, next)=>{
         next();
     }
     else{
-        res.redirect("/user/login");
+        res.redirect("/signIn");
     }
 }

@@ -6,11 +6,7 @@ const {dashboardLoader} = require("../middleware/authorization");
 
 require('dotenv').config({ path: 'config/keys.env'});
 
-router.get("/dashBoard", (req, res)=>{
-    res.render("User/dashBoard",{
-        title: "Dash Board"
-    })
-})
+router.get("/dashBoard", isLoggedIn, dashboardLoader)
 
 router.get('/signIn', (req, res) => {
     res.render("User/signIn", {
