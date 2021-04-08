@@ -28,4 +28,10 @@ router.get('/register', (req, res) => {
 
 router.post('/register', registerMiddleware)
 
+
+router.get("/signOut",(req,res)=>{
+    req.session.destroy();
+    res.redirect("/signIn")
+})
+
 module.exports=router;

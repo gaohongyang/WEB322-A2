@@ -2,6 +2,7 @@ const express =  require('express');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const generalRoutes = require("./controllers/General")
 const userRoutes = require("./controllers/User")
@@ -20,6 +21,19 @@ app.use((req, res, next)=>{
     else if(req.query.method == "DELETE"){
         req.method = "DELETE"
     }
+    next();
+})
+
+//session middleware
+app.use(session({
+    secret: `${process.env.SECRET_KEY}`,
+    resave: false,
+    saveUninitialized: true
+}));
+
+//global template engine variable for userInfo
+app.use((req, res, next)=>{
+    res.locals.user = req.session.userInfo;
     next();
 })
 
