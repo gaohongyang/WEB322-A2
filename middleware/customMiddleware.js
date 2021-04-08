@@ -1,4 +1,6 @@
 const sgMail = require('@sendgrid/mail')
+const userModel = require("../model/User")
+const bcrypt = require('bcryptjs');
 
 exports.signInMiddleware=(req, res, next)=>{
     let emailError, passwordError;
@@ -19,11 +21,34 @@ exports.signInMiddleware=(req, res, next)=>{
         })
     }
     else{
-        res.render("User/signIn", {
-            title: 'Sign In'
+        userModel.findOne({email:req.body.email})
+        .then(user=>{
+            if(user==null){
+                let error;
+                error = "Sorry, your email and/or password is incorrect";
+                res.render("User/signIn", {
+                    error
+                })
+            }
+            else{
+                bcrypt.compare(req.body.password, user.password)
+                .then(isMatched=>{
+                    if(isMatched){
+                        req.session.userInfo = user;
+                        res.redirect("/dashboard")
+                    }
+                    else{
+                        error = "Sorry, your email and/or password is incorrect";
+                        res.render("User/signIn",{
+                            error
+                        })
+                    }
+                })
+                .catch(err=>console.log(`${err}`))
+            }
         })
+        .catch(err=>console.log(`${err}`))
     }
-    next();
 }
 
 exports.registerMiddleware=(req, res, next)=>{
@@ -98,11 +123,25 @@ exports.registerMiddleware=(req, res, next)=>{
         .send(msg)
         .then(() => {
             console.log('Email sent')
-            res.redirect("/dashBoard")
+            const newUser = {
+                email: req.body.registerEmail,
+                password: req.body.registerPassword,
+                fullName: req.body.registerName,
+                gender: req.body.gender,
+                address: req.body.registerAddress,
+                city: req.body.registerCity,
+                postalCode: req.body.registerPostalCode,
+                phone: req.body.registerPhone
+            }
+            const user = new userModel(newUser);
+            user.save()
+            .then(
+                res.redirect("/dashBoard")
+            )
+            .catch(err=>console.log(`Error happened when registering user in the database: ${err}`))
         })
         .catch((error) => {
             console.error(error)
         })
     }
-    next();
 }
