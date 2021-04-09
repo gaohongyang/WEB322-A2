@@ -6,3 +6,12 @@ exports.isLoggedIn=(req, res, next)=>{
         res.redirect("/signIn");
     }
 }
+
+exports.isAdmin=(req, res, next)=>{
+    if(req.session.userInfo.type!=="Admin"){
+        res.redirect("/")
+    }
+    else{
+        next();
+    }
+}

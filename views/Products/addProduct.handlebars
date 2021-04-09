@@ -1,0 +1,83 @@
+<div class="dashBoard container">
+  <div class="row">
+        {{> adminDashboardNav}}
+
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2 text-white">Add Products</h1>
+            </div>
+
+            <form method="POST" action="/addProduct-admin" enctype="multipart/form-data">
+                <div class="container form-container mt-5 text-white">
+                    <div class="form-group col">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    
+                    </div>
+                    <div class="row my-3">
+                        <div class="form-group col">
+                            <label for="rating">Rating(Out of 10)</label>
+                            <input type="text" class="form-control" id="rating" name="rating">
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="index">Index</label>
+                            <input type="text" class="form-control" id="index" name="index" value="{{index}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="form-group col">
+                            <label for="featured">Featured</label>
+                            <select class="form-control" id="featured" name="featured">
+                                <option>yes</option>
+                                <option>no</option>
+                            </select>
+                        </div>
+                
+                        <div class="form-group col">
+                            <label for="category">Category</label>
+                            <select class="form-control" id="category" name="category">
+                                <option>Movie</option>
+                                <option>TV Show</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="form-group col">
+                            <label for="rentPrice">Rent Price</label>
+                            <input type="text" class="form-control" id="rentPrice" name="rentPrice">
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="sellPrice">Sell Price</label>
+                            <input type="text" class="form-control" id="sellPrice" name="sellPrice">
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="form-group col">
+                            <label for="smallPoster">Small Poster</label>
+                            <input type="file" class="form-control-file" id="smallPoster" name="smallPoster">
+                        </div>
+                        
+                        <div class="form-group col">
+                            <label for="largePoster">Large Poster</label>
+                            <input type="file" class="form-control-file" id="largePoster" name="largePoster">
+                        </div>
+                    </div>
+
+                    <div class="my-3">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-flex flex-row-reverse mt-3">
+                        <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

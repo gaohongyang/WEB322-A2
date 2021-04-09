@@ -3,9 +3,11 @@ const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 
 const generalRoutes = require("./controllers/General")
 const userRoutes = require("./controllers/User")
+const productRoutes = require('./controllers/Products')
 
 const app = express();
 
@@ -13,6 +15,9 @@ app.use(express.static("public"));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//file-upload
+app.use(fileUpload());
 
 app.use((req, res, next)=>{
     if(req.query.method=="PUT"){
@@ -41,6 +46,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use("/", generalRoutes);
 app.use("/", userRoutes);
+app.use("/", productRoutes);
 
 //Connect to MongoDB
 mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -48,7 +54,6 @@ mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {useNewUrlParser: true,
     console.log(`Connected to MongoDB Database`);
 })
 .catch(err => console.log(`Error occured when connecting to database ${err}`));
-
 
 app.listen(PORT, () => {
     console.log(`Server is up and running`);
