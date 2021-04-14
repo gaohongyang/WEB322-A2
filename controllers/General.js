@@ -11,7 +11,6 @@ router.get("/", (req, res) => {
                 smallPoster: movie.smallPoster
             }
         });
-
         productModel.find({featured: true, category: "TV Show"})
         .then((featuredShows)=>{
             const filteredFeaturedShows = featuredShows.map(show=>{
@@ -29,7 +28,6 @@ router.get("/", (req, res) => {
         .catch(err=>console.log(`Error: ${err}`))
     })
     .catch(err=>console.log(`Error: ${err}`))
-
 })
 
 router.get("/products", (req, res) => {

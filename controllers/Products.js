@@ -30,21 +30,29 @@ router.post("/addProduct-admin",(req, res)=>{
     const product = new productModel(newProduct);
     product.save()
     .then((product)=>{
-        req.files.smallPoster.name = `${product.index}${path.parse(req.files.smallPoster.name).ext}`
-        req.files.smallPoster.mv(`public/uploads/${req.files.smallPoster.name}`)
-        req.files.largePoster.name = `${product.index}-bg${path.parse(req.files.largePoster.name).ext}`
-        req.files.largePoster.mv(`public/uploads/${req.files.largePoster.name}`)
-        .then(()=>{
-            productModel.updateOne({_id:product._id},{
-                smallPoster: req.files.smallPoster.name,
-                largePoster: req.files.largePoster.name
-            })
+        let arr = ['jpg', 'gif', 'png'];
+        if(arr.includes(path.parse(req.files.smallPoster.name).ext) && arr.includes(path.parse(req.files.largePoster.name).ext)){
+            req.files.smallPoster.name = `${product.index}${path.parse(req.files.smallPoster.name).ext}`
+            req.files.smallPoster.mv(`public/uploads/${req.files.smallPoster.name}`)
+            req.files.largePoster.name = `${product.index}-bg${path.parse(req.files.largePoster.name).ext}`
+            req.files.largePoster.mv(`public/uploads/${req.files.largePoster.name}`)
             .then(()=>{
-                res.redirect('/dashBoard')
+                productModel.updateOne({_id:product._id},{
+                    smallPoster: req.files.smallPoster.name,
+                    largePoster: req.files.largePoster.name
+                })
+                .then(()=>{
+                    res.redirect('/dashBoard')
+                })
+                .catch(err=>console.log(`Error happened when updating files: ${err}`))
             })
-            .catch(err=>console.log(`Error happened when updating files: ${err}`))
-        })
-        .catch(err=>console.log(`Error happened when uploading files: ${err}`))
+            .catch(err=>console.log(`Error happened when uploading files: ${err}`))
+        }
+        else(
+            res.render("Products/addProduct", {
+                err: "File format is not allowed. They will not be uploaded."
+            })
+        )
     })
     .catch(err=>console.log(`Error happened when saving new product: ${err}`))
 })
