@@ -30,8 +30,8 @@
     <h2 class="text-white" id="prod-slider">Featured Movies</h2>
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            {{#each featuredMovies}}
-                <a class="swiper-slide" href="/products/{{this.id}}" style="background-image:url(/images/{{this.id}}.jpg)"></a>
+            {{#each filteredFeaturedMovies}}
+                <a class="swiper-slide" href="/products/{{this.index}}" style="background-image:url(/uploads/{{this.smallPoster}})"></a>
             {{/each}}
         </div>
         <!-- Add Pagination -->
@@ -43,8 +43,8 @@
     <h2 class="text-white" id="prod-slider">Featured TV Shows</h2>
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            {{#each featuredTV}}
-                <a class="swiper-slide" href="/products/{{this.id}}" style="background-image:url(/images/{{this.id}}.jpg); background-size: 100% 100%"></a>
+            {{#each filteredFeaturedShows}}
+                <a class="swiper-slide" href="/products/{{this.index}}" style="background-image:url(/uploads/{{this.smallPoster}}); background-size: 100% 100%"></a>
             {{/each}}
         </div>
         <!-- Add Pagination -->
