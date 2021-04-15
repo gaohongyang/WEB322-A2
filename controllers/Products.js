@@ -155,4 +155,26 @@ router.delete("/delete/:id", (req, res)=>{
     .catch(err=>console.log(`Error: ${err}`))
 })
 
+router.get("/search-result", (req, res)=>{
+    productModel.find({title:req.query.term})
+    .then((products)=>{
+        let noResult;
+        const filteredProducts = products.map(product=>{
+            return {
+                _id: product._id,
+                title: product.title,
+                smallPoster: product.smallPoster
+            }
+        })
+        if(filteredProducts.length === 0){
+            noResult = "There is nothing found in our database, please try another one."
+        }
+        res.render("Products/searchResult", {
+            filteredProducts,
+            noResult
+        })
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
 module.exports=router;

@@ -1,0 +1,24 @@
+<div class="container">
+    <h2 class="mt-5 text-white pt-5">Search Result</h2>
+    <hr>
+    <div class="row">
+        {{#each filteredProducts}}
+        <div class="col-md-2 product-grid">
+            <div class="image">
+                <a href="/products/{{this._id}}">
+                    <img src="uploads/{{this.smallPoster}}" class="w-100" alt="{{this.title}}">
+                    <div class="overlay">
+                        <div class="detail">View Details</div>
+                    </div>
+                </a>
+            </div>
+            <h5 class="text-center mt-2 text-white">{{this.title}}</h5>
+        </div>
+        {{/each}}
+        {{#if noResult}}
+            <div class="container text-white mt-5">
+                <h3>{{noResult}}</h3><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+        {{/if}}
+    </div>
+</div>
