@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     .then((featuredMovies)=>{
         const filteredFeaturedMovies = featuredMovies.map(movie=>{
             return{
-                index: movie.index,
+                _id: movie._id,
                 smallPoster: movie.smallPoster
             }
         });
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
         .then((featuredShows)=>{
             const filteredFeaturedShows = featuredShows.map(show=>{
                 return{
-                    index: show.index,
+                    _id: show._id,
                     smallPoster: show.smallPoster
                 }
             });
@@ -35,8 +35,8 @@ router.get("/products", (req, res) => {
     .then((products)=>{
         const allProducts = products.map(product=>{
             return{
+                _id: product._id,
                 title: product.title,
-                index: product.index,
                 smallPoster: product.smallPoster
             }
         });
@@ -49,7 +49,7 @@ router.get("/products", (req, res) => {
 })
 
 router.get('/products/:id', (req, res) => {
-    productModel.findOne({index:req.params.id})
+    productModel.findById(req.params.id)
     .then((product)=>{
         const{largePoster, smallPoster, title, description, sellPrice, rentPrice} = product;
         res.render("General/productDescription", {

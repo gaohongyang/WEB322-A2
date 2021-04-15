@@ -31,7 +31,7 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             {{#each filteredFeaturedMovies}}
-                <a class="swiper-slide" href="/products/{{this.index}}" style="background-image:url(/uploads/{{this.smallPoster}})"></a>
+                <a class="swiper-slide" href="/products/{{this._id}}" style="background-image:url(/uploads/{{this.smallPoster}})"></a>
             {{/each}}
         </div>
         <!-- Add Pagination -->
@@ -44,7 +44,7 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             {{#each filteredFeaturedShows}}
-                <a class="swiper-slide" href="/products/{{this.index}}" style="background-image:url(/uploads/{{this.smallPoster}}); background-size: 100% 100%"></a>
+                <a class="swiper-slide" href="/products/{{this._id}}" style="background-image:url(/uploads/{{this.smallPoster}}); background-size: 100% 100%"></a>
             {{/each}}
         </div>
         <!-- Add Pagination -->

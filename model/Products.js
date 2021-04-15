@@ -36,10 +36,6 @@ const productSchema = new Schema({
         type: Boolean,
         required: true
     },
-    index:{
-        type: Number,
-        required: true
-    },
     dateCreated:{
         type: Date,
         default: Date.now()

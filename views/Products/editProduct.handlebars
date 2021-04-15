@@ -1,55 +1,67 @@
 <div class="dashBoard container">
-  <div class="row">
+    <div class="row">
         {{> adminDashboardNav}}
 
         <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2 text-white">Add Products</h1>
+                <h1 class="h2 text-white">Edit {{productTitle}}</h1>
             </div>
 
-            <form method="POST" action="/addProduct-admin" enctype="multipart/form-data">
+            <form method="POST" action="/update/{{_id}}?method=PUT" enctype="multipart/form-data">
                 <div class="container form-container mt-5 text-white">
                     <div class="form-group col">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <input type="text" class="form-control" id="title" name="title" value="{{productTitle}}">
                     </div>
-                    <div class="row my-3">
-                        <div class="form-group col">
-                            <label for="rating">Rating(Out of 10)</label>
-                            <input type="text" class="form-control" id="rating" name="rating">
-                        </div>
+
+                    <div class="form-group col">
+                        <label for="rating">Rating(Out of 10)</label>
+                        <input type="text" class="form-control" id="rating" name="rating" value="{{rating}}">
                     </div>
 
                     <div class="row my-3">
                         <div class="form-group col">
                             <label for="featured">Featured</label>
+                            {{#if featured}}
                             <select class="form-control" id="featured" name="featured">
-                                <option>yes</option>
+                                <option selected>yes</option>
                                 <option>no</option>
                             </select>
+                            {{else}}
+                            <select class="form-control" id="featured" name="featured">
+                                <option>yes</option>
+                                <option selected>no</option>
+                            </select>
+                            {{/if}}
                         </div>
                 
                         <div class="form-group col">
                             <label for="category">Category</label>
+                            {{#if isMovie}}
                             <select class="form-control" id="category" name="category">
-                                <option>Movie</option>
+                                <option selected>Movie</option>
                                 <option>TV Show</option>
                             </select>
+                            {{else}}
+                            <select class="form-control" id="category" name="category">
+                                <option>Movie</option>
+                                <option selected>TV Show</option>
+                            </select>
+                            {{/if}}
                         </div>
                     </div>
-
                     <div class="row my-3">
                         <div class="form-group col">
                             <label for="rentPrice">Rent Price</label>
-                            <input type="text" class="form-control" id="rentPrice" name="rentPrice">
+                            <input type="text" class="form-control" id="rentPrice" name="rentPrice" value="{{rentPrice}}">
                         </div>
 
                         <div class="form-group col">
                             <label for="sellPrice">Sell Price</label>
-                            <input type="text" class="form-control" id="sellPrice" name="sellPrice">
+                            <input type="text" class="form-control" id="sellPrice" name="sellPrice" value="{{sellPrice}}">
                         </div>
                     </div>
-
+                    
                     <div class="row my-3">
                         <div class="form-group col">
                             <label for="smallPoster">Small Poster</label>
@@ -61,11 +73,10 @@
                             <input type="file" class="form-control-file" id="largePoster" name="largePoster">
                         </div>
                     </div>
-                    {{smallErr}}
-                    {{largeErr}}
+                    
                     <div class="my-3">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3">{{description}}</textarea>
                     </div>
 
                     <div class="d-flex flex-row-reverse mt-3">
