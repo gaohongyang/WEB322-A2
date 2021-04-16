@@ -59,6 +59,9 @@ exports.registerMiddleware=(req, res, next)=>{
     else if(!req.body.registerEmail.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
         emailError = "Please enter a valid email address."
     }
+    else if(userModel.find({email:req.body.email})){
+        emailError = "Email address has been token, please use another one."
+    }
     if(req.body.registerPassword === ""){
         passwordError = "Please enter a password."
     }
