@@ -26,8 +26,8 @@ router.post("/addProduct-admin", (req, res, next)=>{
     product.save()
     .then((product)=>{
         let smallErr, largeErr;
-        let ext = ['.jpg', '.gif', '.png']
-        if(req.files.smallPoster && ext.includes(path.parse(req.files.smallPoster.name).ext)){
+        let ext = ['.jpg', '.gif', '.png'];
+        if(req.files && ext.includes(path.parse(req.files.smallPoster.name).ext)){
             req.files.smallPoster.name = `${product._id}${path.parse(req.files.smallPoster.name).ext}`
             req.files.smallPoster.mv(`public/uploads/${req.files.smallPoster.name}`)
             .then(()=>{
@@ -44,7 +44,7 @@ router.post("/addProduct-admin", (req, res, next)=>{
         else{
             smallErr = "Small poster is not uploaded."
         }
-        if(req.files.largePoster && ext.includes(path.parse(req.files.largePoster.name).ext)){
+        if(req.files && ext.includes(path.parse(req.files.largePoster.name).ext)){
             req.files.largePoster.name = `${product._id}-bg${path.parse(req.files.largePoster.name).ext}`
             req.files.largePoster.mv(`public/uploads/${req.files.largePoster.name}`)
             .then(()=>{
@@ -114,7 +114,8 @@ router.get("/editProduct/:id",isLoggedIn, isAdmin,(req,res)=>{
     .catch(err=>console.log(`Error: ${err}`))
 })
 
-router.put("/update/:id", (req, res)=>{
+router.put("/update/:id", (req, res, next)=>{
+    let ext = ['.jpg', '.gif', '.png']
     const updatedProduct = {
         title: req.body.title,
         rating: req.body.rating,
@@ -124,27 +125,39 @@ router.put("/update/:id", (req, res)=>{
         description: req.body.description,
         featured: req.body.featured
     }
-    if(req.files.smallPoster){
+    if(req.files && ext.includes(path.parse(req.files.smallPoster.name).ext)){
         req.files.smallPoster.name = `${req.params.id}${path.parse(req.files.smallPoster.name).ext}`
         req.files.smallPoster.mv(`public/uploads/${req.files.smallPoster.name}`)
         .then(()=>{
-            updatedProduct.smallPoster = req.files.smallPoster.name;
+            productModel.updateOne({_id:req.params.id},{
+                smallPoster: req.files.smallPoster.name
+            })
+            .then(()=>{
+                next();
+            })
+            .catch(err=>console.log(`Error: ${err}`))
         })
         .catch(err=>console.log(`Error: ${err}`))
     }
-    if(req.files.largePoster){
-    req.files.largePoster.name = `${req.params.id}-bg${path.parse(req.files.largePoster.name).ext}`
-    req.files.largePoster.mv(`public/uploads/${req.files.largePoster.name}`)
-    .then(()=>{
-        updatedProduct.largePoster = req.files.largePoster.name;
-    })
-    .catch(err=>console.log(`Error: ${err}`))
+    if(req.files && ext.includes(path.parse(req.files.largePoster.name).ext)){
+        req.files.largePoster.name = `${req.params.id}-bg${path.parse(req.files.largePoster.name).ext}`
+        req.files.largePoster.mv(`public/uploads/${req.files.largePoster.name}`)
+        .then(()=>{
+            productModel.updateOne({_id:req.params.id},{
+                largePoster: req.files.largePoster.name
+            })
+            .then(()=>{
+                next();
+            })
+            .catch(err=>console.log(`Error: ${err}`))
+        })
+        .catch(err=>console.log(`Error: ${err}`))
     }
     productModel.updateOne({_id:req.params.id}, updatedProduct)
     .then(()=>{
-        res.redirect(`/`)
+        res.redirect("/dashBoard")
     })
-    .catch()
+    .catch(err=>console.log(`Error: ${err}`))
 })
 
 router.delete("/delete/:id", (req, res)=>{
