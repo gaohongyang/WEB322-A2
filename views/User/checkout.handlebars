@@ -49,7 +49,17 @@
                     <p>Total: {{total}}</p>
                     <p>HST: {{HST}}</p>
                     <p>Payment: {{pay}}</p>
-                    <input class="btn btn-primary" type="submit" name="submit" value="Complete Order">
+                    <form method="POST" action="/check-out">
+                        {{#each filteredRent}}
+                            <input type="hidden" value="{{this.title}}" name="rentTitle">
+                        {{/each}}
+
+                        {{#each filteredSell}}
+                            <input type="hidden" value="{{this.title}}" name="sellTitle">
+                        {{/each}}
+                        <input type="hidden" value="{{pay}}" name="pay">
+                        <input class="btn btn-primary me-0" type="submit" name="submit" value="Confirm Order">
+                    </form>
                 </div>
             </div>
         </div>

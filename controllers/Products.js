@@ -4,7 +4,9 @@ const path = require('path');
 const productModel = require('../model/Products');
 const sellModel = require('../model/Sell');
 const rentModel = require('../model/Rent');
+const orderModel = require('../model/Order');
 const {isLoggedIn,isAdmin} = require('../middleware/authentication');
+const sgMail = require('@sendgrid/mail');
 
 router.get("/addProduct-admin",isLoggedIn, isAdmin, (req, res)=>{
     res.render("Products/addProduct")
@@ -295,6 +297,51 @@ router.get("/check-out", isLoggedIn, (req, res)=>{
                 HST,
                 pay
             })
+        })
+        .catch(err=>console.log(`Error: ${err}`))
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.post("/check-out", isLoggedIn, (req, res)=>{
+    const newOrder = {
+        sellTitle: req.body.sellTitle,
+        rentTitle: req.body.rentTitle,
+        pay: req.body.pay,
+        userId: req.session.userInfo._id
+    }
+    const order = new orderModel(newOrder);
+    order.save()
+    .then((order)=>{
+        rentModel.deleteMany({userId:order.userId})
+        .then(()=>{
+            sellModel.deleteMany({userId:order.userId})
+            .then(()=>{
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                const msg = {
+                    to: req.session.userInfo.email,
+                    from: 'hgao42@myseneca.ca',
+                    subject: "Thank you for your purchase",
+                    html: `
+                        <h5>Thank you for you purchase on GAO's movie website</h5><br>
+                        <p>Hi ${req.session.userInfo.fullName},</p>
+                        <p>Your order has been completed</P>
+                        <p>You ordered ${order.sellTitle},${order.rentTitle}</P>
+                        <p>Payment: ${order.pay}</p>
+                        <br>
+                        <p>Thank you,</p>
+                        <p>GAO's movie team</P>
+                    `,
+                }
+                sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                    res.redirect("/dashBoard")
+                })
+                .catch(err=>console.log(`Error: ${err}`))
+            })
+            .catch(err=>console.log(`Error: ${err}`))
         })
         .catch(err=>console.log(`Error: ${err}`))
     })
