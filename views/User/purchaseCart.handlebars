@@ -1,0 +1,40 @@
+<div class="dashBoard container">
+    <div class="row">
+        {{> userDashboardNav}}
+
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2 text-white">Purchase List</h1>
+            </div>
+            <div class="text-white">
+                <table class="container table table-dark table-hover table-bordered w-50">
+                    <thead>
+                        <tr>
+                            <th class="w-50 text-center" scope="col">Title</th>
+                            <th class="w-25 text-center" scope="col">Price</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each filteredSell}}
+                        <tr>
+                            <td class="text-center pt-4">{{this.title}}</td>
+                            <td class="text-center pt-4">{{this.sell}}</td>
+                            <td class="text-center">
+                                <a href="/deleteSell/{{this._id}}?method=DELETE">
+                                    <button class="btn btn-danger badge-pill" style="width:80px;">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {{else}}
+                        <td colspan="3">
+                            <p>No product in your purchase cart</p>
+                        </td>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

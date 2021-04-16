@@ -5,9 +5,18 @@
         </div>
         <div class="prod-description col-md mt-4">
             <h2 class="text-white">{{productTitle}}</h2>
+            <p class="text-white">{{rating}}/10</p>
             <p class="text-white">{{description}}</p>
-            <button type="button" class="btn btn-primary ">Buy: ${{sellPrice}}</button>
-            <button type="button" class="btn btn-primary ">Rent: ${{rentPrice}}</button>
+        
+            <form action="/sell-cart" method="POST">
+                <input type="hidden" value="{{_id}}" name="sell">
+                <button class="btn btn-primary" type="submit">Buy: ${{sellPrice}}</button>
+            </form>
+
+            <form action="/rent-cart" method="POST">
+                <input type="hidden" value="{{_id}}" name="rent">
+                <button class="btn btn-primary" type="submit">Rent: ${{rentPrice}}</button>
+            </form>
         </div>
     </div>
 </div>

@@ -2,14 +2,12 @@ const express = require('express')
 const router = express.Router();
 const path = require('path');
 const productModel = require('../model/Products');
+const sellModel = require('../model/Sell');
+const rentModel = require('../model/Rent');
 const {isLoggedIn,isAdmin} = require('../middleware/authentication');
 
 router.get("/addProduct-admin",isLoggedIn, isAdmin, (req, res)=>{
-    productModel.find()
-    .then((products)=>{
-        res.render("Products/addProduct");
-    })
-    .catch(err=>console.log(`${err}`))
+    res.render("Products/addProduct")
 })
 
 router.post("/addProduct-admin", (req, res, next)=>{
@@ -173,6 +171,132 @@ router.get("/search-result", (req, res)=>{
             filteredProducts,
             noResult
         })
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.get("/sell-cart", isLoggedIn, (req, res)=>{
+    sellModel.find({userId:req.session.userInfo._id})
+    .then((sellProds)=>{
+        const filteredSell = sellProds.map(elem=>{
+            return {
+                _id: elem._id,
+                title: elem.title,
+                sell: elem.sell
+            }
+        })
+        res.render("User/purchaseCart", {
+            filteredSell
+        })
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.delete("/deleteSell/:id", isLoggedIn, (req, res)=>{
+    sellModel.deleteOne({_id:req.params.id})
+    .then(()=>{
+        res.redirect("/sell-cart")
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.post("/sell-cart", isLoggedIn, (req, res)=>{
+    productModel.findOne({_id:req.body.sell})
+    .then((product)=>{
+        const newSell = {
+            title: product.title,
+            sell: product.sellPrice,
+            userId: req.session.userInfo._id
+        }
+        const sell = new sellModel(newSell);
+        sell.save()
+        .then(
+            res.redirect("/products")
+        )
+        .catch(err=>console.log(`Error: ${err}`))
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.get("/rent-cart", isLoggedIn, (req, res)=>{
+    rentModel.find({userId:req.session.userInfo._id})
+    .then((rentProds)=>{
+        const filteredRent = rentProds.map(elem=>{
+            return {
+                _id: elem._id,
+                title: elem.title,
+                rent: elem.rent,
+                location: elem.location,
+                time: elem.time
+            }
+        })
+        res.render("User/rentCart", {
+            filteredRent
+        })
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.post("/rent-cart", isLoggedIn, (req, res)=>{
+    productModel.findOne({_id:req.body.rent})
+    .then((product)=>{
+        const newRent = {
+            title: product.title,
+            rent: product.rentPrice,
+            userId: req.session.userInfo._id
+        }
+        const rent = new rentModel(newRent);
+        rent.save()
+        .then(
+            res.redirect("/products")
+        )
+        .catch(err=>console.log(`Error: ${err}`))
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.delete("/deleteRent/:id", isLoggedIn, (req, res)=>{
+    rentModel.deleteOne({_id:req.params.id})
+    .then(()=>{
+        res.redirect("/rent-cart")
+    })
+    .catch(err=>console.log(`Error: ${err}`))
+})
+
+router.get("/check-out", isLoggedIn, (req, res)=>{
+    let sellPrice = 0, rentPrice = 0, total = 0, HTS = 0, pay = 0;
+    rentModel.find({userId:req.session.userInfo._id})
+    .then((rentProds)=>{
+        const filteredRent = rentProds.map(elem=>{
+            return {
+                _id: elem._id,
+                title: elem.title,
+                rent: elem.rent
+            }
+        })
+        sellModel.find({userId:req.session.userInfo._id})
+        .then((sellProds)=>{
+            const filteredSell = sellProds.map(elem=>{
+                return {
+                    _id: elem._id,
+                    title: elem.title,
+                    sell: elem.sell
+                }
+            })
+            filteredSell.forEach(element=> sellPrice += Number(element.sell))
+            filteredRent.forEach(element=> rentPrice += Number(element.rent))
+            total = sellPrice + rentPrice;
+            HST = (total * 0.13).toPrecision(2);
+            pay = total + Number(HST);
+            res.render("User/checkout", {
+                filteredSell,
+                filteredRent,
+                total,
+                HST,
+                pay
+            })
+        })
+        .catch(err=>console.log(`Error: ${err}`))
     })
     .catch(err=>console.log(`Error: ${err}`))
 })

@@ -51,7 +51,7 @@ router.get("/products", (req, res) => {
 router.get('/products/:id', (req, res) => {
     productModel.findById(req.params.id)
     .then((product)=>{
-        const{largePoster, smallPoster, title, description, sellPrice, rentPrice} = product;
+        const{largePoster, smallPoster, title, description, sellPrice, rentPrice, rating, _id} = product;
         res.render("General/productDescription", {
             title: "Description",
             productTitle: title,
@@ -59,7 +59,9 @@ router.get('/products/:id', (req, res) => {
             smallPoster,
             description,
             sellPrice,
-            rentPrice
+            rentPrice,
+            rating,
+            _id
         })
     })
     .catch(err=>console.log(`Error: ${err}`))
