@@ -1,4 +1,11 @@
 # WEB322-Movie Website
+
+Link: [GAO's Movie Website](https://gao-movie-website.herokuapp.com)
+|             | Regular User | Administrator |
+| ----------- | ------------ | ------------- |
+| Account     | test@test    | admin@admin   |
+| Password    | 111111       | 111111        |
+
 This is a movie website which is built with Node.js, Express, API, Express-Handlebars, Express-Session, Express-Fileupload, Mongoose, and Bcryptjs.
 
 This Website allows regular users and administrators to login, and different types of login will grant different accessibility, for example, administrator is allowed to add/remove movies/TV shows from the website, users are allowed to add movies/TV shows to their shopping cart and checkout, and guests are only allowed to view the website, they will not get accessibility to these functions.
