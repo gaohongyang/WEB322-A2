@@ -4,7 +4,6 @@ const {signInMiddleware, registerMiddleware} = require("../middleware/customMidd
 const {isLoggedIn} = require('../middleware/authentication');
 const {dashboardLoader} = require("../middleware/authorization");
 
-require('dotenv').config({ path: 'config/keys.env'});
 
 router.get("/dashBoard", isLoggedIn, dashboardLoader)
 
